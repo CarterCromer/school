@@ -1,83 +1,104 @@
 package school;
 import java.util.ArrayList;
-public class Person {
-    
-//    public static int numPeople = 10;
-//    private static int currentPeopleIndex = 0;
-//    private static Person people[] = new Person[numPeople];
-    private static ArrayList<Person> people =
-            new ArrayList<Person>();
-    
+import java.util.Calendar;
+public class Person {      
+    protected static ArrayList<Person> people = 
+    new ArrayList<Person>();
     enum Gender {
-        Male,Female,Gay,Lesbian,Trans
+        Male,Female
     }
-    
-    private Gender gender;
-    private int weight;
     private String name;
-    
-    public static Person addPerson(String _name,Gender _gender, int _weight) {
-        Person temp = new Person(_gender,_weight,_name);
-       // people[currentPeopleIndex++] = temp;
+    private int weight;
+    private Gender gender;
+    private int birthDay;
+    private int birthMonth;
+    private int birthYear;
+
+    public static Person addPerson(String _name,
+    Gender _gender, int _weight)
+    {
+        Person temp = new Person(_name,_gender,_weight);
         people.add(temp);
         return(temp);
+    }    
+    public static void addPerson(Person _person)
+    {
+        people.add(_person);
+    }    
+    Person()
+    {
+        name = "None";
+        weight = 100;
+        gender = Gender.Female;
     }
-    
-    Person (){
-        gender = Gender.Male;
-        weight = 180;
-        name = "nameless";
+    Person(String _name,Gender _gender,int _weight)
+    {
+        name = _name;
+        weight = _weight;
+        gender = _gender;
+    }  
+    public void setBirthdate
+    (int _day,int _month,int _year)
+    {
+        birthDay = _day;
+        birthMonth = _month;
+        birthYear = _year;
+          
     }
-    
-    Person (Gender gender_, int weight_, String name_){
-        gender = gender_;
-        weight = weight_;
-        name = name_;
-    }   
-    //GET METHODS
-    public int getWeight(){
+    public int getAge()
+    {
+        Calendar now = Calendar.getInstance();
+        int day = now.get(Calendar.DAY_OF_MONTH);
+        int month = now.get(Calendar.MONTH) + 1;
+        int year = now.get(Calendar.YEAR);
+        return(0);
+    }    
+    public void setWeight(int _weight)
+    {
+        weight = _weight;
+    }
+    public int getWeight()
+    {
         return(weight);
+    }       
+    public void setName(String _name)
+    {
+        name = _name;
     }
-    public String getName(){
+    public String getName()
+    {
         return(name);
+    }    
+    public void setGender(Gender _gender)
+    {
+        gender = _gender;
     }
-    public Gender getGender(){
+    public Gender getGender()
+    {
         return(gender);
-    }
-    //SET METHODS
-    public void setWeight(int weight_){
-        weight = weight_;
-    }
-    public void setName(String name_){
-        name = name_;
-    }
-    public void setGender(Gender gender_){
-        gender = gender_;
-    }
-    public static void printNames(){
-//        System.out.println("<==Names==>");
-//        for(int i = 0;i < people.length;i++) {
-//            if(people[i] != null)
-//                System.out.println(people[i].getName());
-//        }
-//        System.out.println("<=========>");
-        System.out.println("<==Names==>");
-        for(Person temp : people) {
+    }      
+    
+    public static void printNames()
+    {
+        System.out.println("===printNames===");
+        for (Person temp : people)
+        {
+            System.out.println(temp.getName());
+        }
+    }    
+    public static void printNames(Gender _gender)
+    {
+        System.out.println("===printNames===");
+        for (Person temp : people)
+        {
+            if (temp.gender == _gender)
                 System.out.println(temp.getName());
         }
-        System.out.println("<=========>");
     }
-    public static void printNames(Gender gender){
-        System.out.println("<=="+gender+"Names==>");
-        for(Person temp : people) {
-            if(temp.getGender() == gender)
-                System.out.println(temp.getName());
-        }
-        System.out.println("<=========>");
-    }
+    
     
     public String toString()
     {
         return(name + " " + gender + " " + weight);
-    }
+    }    
 }
